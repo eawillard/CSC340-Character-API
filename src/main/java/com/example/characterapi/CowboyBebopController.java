@@ -1,6 +1,8 @@
 package com.example.characterapi;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,24 +21,34 @@ public class CowboyBebopController {
         return characterService.getAllCharacters();
     }
 
-    @GetMapping("/{id}")
-    public CowboyBebopCharacter getCharacterById(
-            @PathVariable Long id) {
-        return characterService.getCharacterById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Character not found: " + id));
+    @GetMapping
+public List<CowboyBebopCharacter> getAllCharacters(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) String originPlanet) {
+
+    if (name != null && !name.isBlank()) {
+        return characterService.searchByName(name);
     }
+
+    if (originPlanet != null && !originPlanet.isBlank()) {
+        return characterService.filterByOriginPlanet(originPlanet);
+    }
+
+    return characterService.getAllCharacters();
+}
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CowboyBebopCharacter createCharacter(
-            @RequestBody CowboyBebopCharacter character) {
+        @Valid
+        @RequestBody CowboyBebopCharacter character) {
         return characterService.saveCharacter(character);
     }
 
     @PutMapping("/{id}")
     public CowboyBebopCharacter updateCharacter(
             @PathVariable Long id,
+            @Valid
             @RequestBody CowboyBebopCharacter character) {
 
         character.setCharacterId(id);
