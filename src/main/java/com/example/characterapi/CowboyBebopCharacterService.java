@@ -1,5 +1,6 @@
 package com.example.characterapi;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +28,14 @@ public CowboyBebopCharacter saveCharacter(CowboyBebopCharacter character) {
 }
 
 public void deleteCharacter(Long id) {
+    if (!characterRepository.existsById(id)) {
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Character not found: " + id);
+    }
+
     characterRepository.deleteById(id);
 }
+
 public List<CowboyBebopCharacter> searchByName(String name) {
     return characterRepository.findByNameContainingIgnoreCase(name);
 }
