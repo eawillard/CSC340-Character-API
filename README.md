@@ -20,12 +20,18 @@ originPlanet:	String	Character's planet of origin
 
 Method	Path	Description	Success Status
 GET	/api/characters	Retrieve all characters	200 OK
+
 GET	/api/characters/{id}	Retrieve a character by ID	200 OK
+
 POST	/api/characters	Create a character	201 Created
 PUT	/api/characters/{id}	Update an existing character	200 OK
+
 DELETE	/api/characters/{id}	Delete a character	204 No Content
+
 GET	/api/characters?name=spi	Search names using partial, case-insensitive matching	200 OK
+
 GET	/api/characters?originPlanet=Mars	Filter characters by origin planet	200 OK
+
 POST Example — Create a Character
 
 POST /api/characters
@@ -34,8 +40,11 @@ Content-Type: application/json
 
 {
   "name": "Faye Valentine",
+  
   "description": "A former wanted bounty head who later became a member of the Bebop crew.",
+  
   "firstSession": "Honky Tonk Women",
+  
   "originPlanet": "Earth"
 }
 
@@ -50,8 +59,11 @@ Content-Type: application/json
 
 {
   "name": "Spike Spiegel",
+  
   "description": "An exiled former hitman of the Red Dragon Syndicate who now works as a bounty hunter.",
+  
   "firstSession": "Asteroid Blues",
+  
   "originPlanet": "Mars"
 }
 
@@ -59,7 +71,9 @@ Content-Type: application/json
 Replace 1 with the ID of the character you want to update. A successful request returns 200 OK.
 
 Search and Filtering
+
 Search by name: GET /api/characters?name=spi
+
 Filter by origin planet: GET /api/characters?originPlanet=Mars
 
 Name searches are partial and case-insensitive. Origin planet filtering is case-insensitive.
