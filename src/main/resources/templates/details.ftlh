@@ -1,110 +1,98 @@
 
-<!DOCTYPE html>
 <#import "shared/layout.ftlh" as layout>
 
 <@layout.layout>
 
-    
+<main class="details-page">
 
-</@layout.layout>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${character.name} | Cowboy Bebop Character Gallery</title>
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        crossorigin="anonymous"
-    >
-
-    <link rel="stylesheet" href="/style.css">
-</head>
-
-<body>
-
-    <nav class="navbar">
-        <ul>
-            <li><a href="/characters">Home</a></li>
-            <li><a href="/characters/about">About</a></li>
-            <li><a href="/characters/new">Add a Character</a></li>
-        </ul>
-    </nav>
-
-    <main class="details-page">
-
-        
-<section class="details-image">
-
-    <#if character.imageUrl?? && character.imageUrl?has_content>
-        <#assign imageSrc = character.imageUrl>
-        <#assign imageAlt = character.name>
-    <#else>
-        <#assign imageSrc = "/images/placeholder.png">
-        <#assign imageAlt = "No image available">
+    <#if successMessage??>
+        <div class="alert alert-success details-message">
+            ${successMessage}
+        </div>
     </#if>
 
-    <img src="${imageSrc}" alt="${imageAlt}">
+    <section class="details-image">
 
-</section>
+        <#if character.imageUrl?? &&
+             character.imageUrl?has_content>
 
+            <img
+                src="${character.imageUrl}"
+                alt="${character.name}"
+                onerror="this.onerror=null;this.src='/images/placeholder.png';">
 
-        <section class="details-content">
+        <#else>
 
-            <h1>${character.name}</h1>
+            <img
+                src="/images/placeholder.png"
+                alt="No character image available">
 
-            <#if successMessage??>
-                <div class="alert alert-success">
-                    ${successMessage}
-                </div>
-            </#if>
+        </#if>
 
-            <h2>Character Information</h2>
+    </section>
 
-            <ul>
-                <li>
-                    <strong>Planet of Origin:</strong>
-                    ${character.originPlanet!'Unknown'}
-                </li>
+    <section class="details-content">
 
-                <li>
-                    <strong>First Appearance:</strong>
-                    ${character.firstSession!'Unknown'}
-                </li>
-            </ul>
+        <p class="eyebrow">CHARACTER FILE</p>
 
-            <h2>Backstory</h2>
+        <h1>${character.name}</h1>
 
-            <p>${character.description}</p>
+        <h2>Character Information</h2>
 
-            <div class="character-actions">
+        <ul class="character-attributes">
 
-                <a href="/characters"
-                   class="details-button">
-                    Back to Gallery
-                </a>
+            <li>
+                <strong>Character ID:</strong>
+                ${character.characterId}
+            </li>
 
-                <a href="/characters/${character.characterId}/edit"
-                   class="details-button">
-                    Edit Character
-                </a>
+            <li>
+                <strong>Planet of Origin:</strong>
+                ${character.originPlanet!'Unknown'}
+            </li>
 
-                <a href="/characters/${character.characterId}/delete"
-                   class="details-button">
-                    Delete Character
-                </a>
+            <li>
+                <strong>First Appearance:</strong>
+                ${character.firstSession!'Unknown'}
+            </li>
 
-            </div>
+            <li>
+                <strong>Image URL:</strong>
+                ${character.imageUrl!'No image available'}
+            </li>
 
-        </section>
+        </ul>
 
-    </main>
+        <h2>Backstory and Description</h2>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-    </script>
+        <p>${character.description}</p>
 
-</body>
-</html>
+        <div class="character-actions">
+
+            <a href="/characters" class="details-button">
+                Back to Gallery
+            </a>
+
+            <a
+                href="/characters/${character.characterId}/edit"
+                class="details-button">
+
+                Edit Character
+
+            </a>
+
+            <a
+                href="/characters/${character.characterId}/delete"
+                class="details-button delete-button">
+
+                Delete Character
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
 </@layout.layout>

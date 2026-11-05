@@ -1,44 +1,84 @@
-<#import "layout.ftlh" as layout>
+
+<#import "shared/layout.ftlh" as layout>
 
 <@layout.layout>
 
-    <main class="about-page">
-        <img src="images/cb_logo.png" alt="cowboy bebop logo" class="about-image">
-        <section class="about-content">
-            <h1>About Character Gallery</h1>
-            <p>This gallery was made to display a collection of characters from the series Cowboy Bebop. The purpose is to view character artwork and learn about them and the universe they belong in.</p>
-            <p>Theming was made to match the space and vintage vibe of the series.
+<main class="about-page">
 
+    <img
+        src="/images/cb_logo.png"
+        alt="Cowboy Bebop logo"
+        class="about-image">
 
-            <p>"Once upon a time, in New York City in 1941... at this club open to all comers to play, night after night, at a club named "Minston's Play House" in Harlem, they play jazz sessions competing with each other. 
-                Young jazz men with a new sense are gathering. At last they created a new genre itself. They are sick and tired of the conventional fixed style jazz. 
-                They're eager to play jazz more freely as they wish then... in 2071 in the universe... The bounty hunters, who are gathering in the spaceship "BEBOP", will play freely without fear of risky things.
-                 They must create new dreams and films by breaking traditional styles. The work, which becomes a new genre itself, will be called... COWBOY BEBOP "
+    <section class="about-content">
 
-                    <p>
-                This application uses Spring Boot MVC and FreeMarker
-                to create dynamic web pages. Character information
-                is stored in a PostgreSQL database hosted through Neon.
-            </p>
+        <p class="eyebrow">SEE YOU SPACE COWBOY</p>
 
-            <p>
-                The application is organized into different layers.
-                The controller handles requests from users, the
-                service layer manages character operations, and
-                the repository communicates with the database using
-                Spring Data JPA.
-            </p>
+        <h1>About Character Gallery</h1>
 
-            <p>
-                FreeMarker takes the information retrieved from
-                the database and displays it on the website.
-                Users can browse characters, search by name or
-                planet, view character details, and add, edit,
-                or delete characters.
-            </p>
-    </main>
-     <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
-</body>
-</html>
+        <p>
+            Welcome to the Cowboy Bebop Character Gallery!
+            This website showcases characters from the
+            Cowboy Bebop universe. Visitors can explore
+            character artwork, learn about their backgrounds,
+            and discover the planets and places connected
+            to their stories.
+        </p>
+
+        <p>
+            The design takes inspiration from the futuristic
+            space setting and vintage jazz atmosphere of the
+            series. The colors, imagery, and overall layout
+            reflect the personality of Cowboy Bebop.
+        </p>
+
+        <h2>About Cowboy Bebop</h2>
+
+        <p>
+            Set in the year 2071, Cowboy Bebop follows a
+            group of bounty hunters traveling through space
+            aboard the spaceship Bebop. The series combines
+            science fiction, action, comedy, and jazz-inspired
+            storytelling.
+        </p>
+
+        <h2>How This Application Works</h2>
+
+        <p>
+            This application was developed using Java,
+            Spring Boot MVC, FreeMarker, and PostgreSQL.
+            It builds upon an earlier static character
+            gallery by connecting the website to a
+            working database.
+        </p>
+
+        <p>
+            The application uses a layered architecture.
+            The MVC controller receives requests from
+            users and communicates with the service layer.
+            The service layer manages character operations,
+            while the repository communicates with the
+            PostgreSQL database hosted through Neon using
+            Spring Data JPA.
+        </p>
+
+        <p>
+            FreeMarker templates take the character
+            information retrieved from the database
+            and dynamically display it on the website.
+            This allows users to search, view, add,
+            edit, and delete character records.
+        </p>
+
+        <p>
+            The application also maintains a separate
+            REST API. The API provides JSON endpoints
+            that allow character data to be retrieved
+            and modified through HTTP requests.
+        </p>
+
+    </section>
+
+</main>
+
+</@layout.layout>

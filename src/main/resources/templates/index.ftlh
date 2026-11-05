@@ -1,120 +1,129 @@
 
-<#import "layout.ftlh" as layout>
+<#import "shared/layout.ftlh" as layout>
 
 <@layout.layout>
 
-    <header class="header">
-        <h1>Cowboy Bebop Character Gallery</h1>
-    </header>
+<header class="header">
+    <p class="eyebrow">SEE YOU SPACE COWBOY...</p>
+    <h1>Cowboy Bebop Character Gallery</h1>
+    <p>Explore the crew and characters of the Bebop universe.</p>
+</header>
 
-    <main>
+<main class="container">
 
-        <#if successMessage??>
-            <div class="alert alert-success">
-                ${successMessage}
-            </div>
-        </#if>
+    <#if successMessage??>
+        <div class="alert alert-success">
+            ${successMessage}
+        </div>
+    </#if>
 
-        <section class="search-section">
+    <section class="search-section">
 
-            <h2>Find a Character</h2>
+        <h2>Find a Character</h2>
 
-            <form class="search-bar" action="/characters" method="get">
+        <form class="search-bar"
+              action="/characters"
+              method="get">
 
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter character name..."
-                    value="${name!''}"
-                >
+            <input
+                type="text"
+                name="name"
+                placeholder="Search by character name..."
+                value="${name!''}">
 
-                <input
-                    type="text"
-                    name="originPlanet"
-                    placeholder="Filter by planet..."
-                    value="${originPlanet!''}"
-                >
+            <input
+                type="text"
+                name="originPlanet"
+                placeholder="Filter by planet..."
+                value="${originPlanet!''}">
 
-                <button type="submit">Search</button>
+            <button type="submit" class="details-button">
+                Search
+            </button>
 
-                <a href="/characters" class="details-button">
-                    Clear
-                </a>
+            <a href="/characters" class="details-button">
+                Clear
+            </a>
 
-            </form>
+        </form>
 
-        </section>
+    </section>
 
-        <section class="gallery">
+    <section class="gallery">
 
-            <#if characters?has_content>
+        <#if characters?has_content>
 
-                <#list characters as character>
+            <#list characters as character>
 
-                    <div class="character-card">
+                <article class="character-card">
 
-                        <#if character.imageUrl?? && character.imageUrl?has_content>
+                    <#if character.imageUrl?? &&
+                         character.imageUrl?has_content>
 
-                            <img
-                                src="${character.imageUrl}"
-                                alt="${character.name}"
-                            >
+                        <img
+                            src="${character.imageUrl}"
+                            alt="${character.name}"
+                            onerror="this.onerror=null;this.src='/images/placeholder.png';">
 
-                        <#else>
+                    <#else>
 
-                            <img
-                                src="/images/cb_logo.png"
-                                alt="No character image available"
-                            >
+                        <img
+                            src="/images/placeholder.png"
+                            alt="Character image unavailable">
 
-                        </#if>
+                    </#if>
 
-                        <div class="character-info">
+                    <div class="character-info">
 
-                            <h3>${character.name}</h3>
+                        <h3>${character.name}</h3>
 
-                            <p>${character.description!''}</p>
+                        <p>${character.description!''}</p>
 
-                            <p>
-                                <strong>Planet of Origin:</strong>
-                                ${character.originPlanet!'Unknown'}
-                            </p>
+                        <p>
+                            <strong>Origin:</strong>
+                            ${character.originPlanet!'Unknown'}
+                        </p>
 
-                            <p>
-                                <strong>First Appearance:</strong>
-                                ${character.firstSession!'Unknown'}
-                            </p>
+                        <p>
+                            <strong>First Appearance:</strong>
+                            ${character.firstSession!'Unknown'}
+                        </p>
 
-                            <a
-                                href="/characters/${character.characterId}"
-                                class="details-button">
-                                View Details
-                            </a>
+                        <a
+                            href="/characters/${character.characterId}"
+                            class="details-button">
 
-                        </div>
+                            View Details
+
+                        </a>
 
                     </div>
 
-                </#list>
+                </article>
 
-            <#else>
+            </#list>
 
-                <div class="no-results">
+        <#else>
 
-                    <h2>No characters found</h2>
+            <div class="no-results">
 
-                    <p>Try another name or planet.</p>
+                <h2>No characters found</h2>
 
-                    <a href="/characters" class="details-button">
-                        View All Characters
-                    </a>
+                <p>
+                    We couldn't find any characters matching
+                    your search. Try another name or planet.
+                </p>
 
-                </div>
+                <a href="/characters" class="details-button">
+                    View All Characters
+                </a>
 
-            </#if>
+            </div>
 
-        </section>
+        </#if>
 
-    </main>
+    </section>
+
+</main>
 
 </@layout.layout>

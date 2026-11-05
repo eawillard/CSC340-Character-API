@@ -1,117 +1,117 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Form | Cowboy Bebop</title>
+<#import "shared/layout.ftlh" as layout>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        crossorigin="anonymous"
-    >
+<@layout.layout>
 
-    <link rel="stylesheet" href="/style.css">
-</head>
+<main class="form-page">
 
-<body>
+    <section class="form-container">
 
-    <nav class="navbar">
-        <ul>
-            <li><a href="/characters">Home</a></li>
-            <li><a href="/characters/about">About</a></li>
-            <li><a href="/characters/new">Add a Character</a></li>
-        </ul>
-    </nav>
+        <p class="eyebrow">CHARACTER DATABASE</p>
 
-    <main class="about-page">
+        <h1>${formTitle}</h1>
 
-        <section class="about-content">
+        <p>
+            Enter the character information below.
+            All fields are available for editing.
+        </p>
 
-            <h1>
-                <#if character.characterId??>
-                    Edit Character
-                <#else>
-                    Add a New Character
-                </#if>
-            </h1>
+        <#if errors?? && errors?has_content>
 
-            <#if errors??>
-                <div class="alert alert-danger">
-                    <ul>
-                        <#list errors as error>
-                            <li>${error}</li>
-                        </#list>
-                    </ul>
-                </div>
-            </#if>
+            <div class="alert alert-danger">
+                <strong>Please correct the following:</strong>
 
-            <form
-                action="<#if character.characterId??>/characters/${character.characterId}/edit<#else>/characters</#if>"
-                method="post">
+                <ul>
+                    <#list errors as error>
+                        <li>${error}</li>
+                    </#list>
+                </ul>
+            </div>
 
-                <div class="mb-3">
-                    <label for="name">Character Name</label>
+        </#if>
 
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        class="form-control"
-                        value="${(character.name)!''}"
-                        required
-                    >
-                </div>
+        <form action="${formAction}" method="post">
 
-                <div class="mb-3">
-                    <label for="description">Description / Backstory</label>
+            <div class="mb-3">
 
-                    <textarea
-                        id="description"
-                        name="description"
-                        class="form-control"
-                        rows="5"
-                        required
-                    >${(character.description)!''}</textarea>
-                </div>
+                <label for="name">Character Name *</label>
 
-                <div class="mb-3">
-                    <label for="firstSession">First Appearance</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    value="${(character.name)!''}"
+                    maxlength="100"
+                    required>
 
-                    <input
-                        type="text"
-                        id="firstSession"
-                        name="firstSession"
-                        class="form-control"
-                        value="${(character.firstSession)!''}"
-                    >
-                </div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="originPlanet">Planet of Origin</label>
+            <div class="mb-3">
 
-                    <input
-                        type="text"
-                        id="originPlanet"
-                        name="originPlanet"
-                        class="form-control"
-                        value="${(character.originPlanet)!''}"
-                    >
-                </div>
+                <label for="description">
+                    Description / Backstory *
+                </label>
 
-                <div class="mb-3">
-                    <label for="imageUrl">Character Image URL</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    class="form-control"
+                    rows="6"
+                    maxlength="5000"
+                    required>${(character.description)!''}</textarea>
 
-                    <input
-                        type="text"
-                        id="imageUrl"
-                        name="imageUrl"
-                        class="form-control"
-                        value="${(character.imageUrl)!''}"
-                        placeholder="/images/Spike_spiegel.png"
-                    >
-                </div>
+            </div>
+
+            <div class="mb-3">
+
+                <label for="firstSession">
+                    First Appearance
+                </label>
+
+                <input
+                    type="text"
+                    id="firstSession"
+                    name="firstSession"
+                    class="form-control"
+                    value="${(character.firstSession)!''}">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="originPlanet">
+                    Planet of Origin
+                </label>
+
+                <input
+                    type="text"
+                    id="originPlanet"
+                    name="originPlanet"
+                    class="form-control"
+                    value="${(character.originPlanet)!''}">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="imageUrl">
+                    Character Image URL
+                </label>
+
+                <input
+                    type="url"
+                    id="imageUrl"
+                    name="imageUrl"
+                    class="form-control"
+                    value="${(character.imageUrl)!''}"
+                    placeholder="https://example.com/image.jpg">
+
+            </div>
+
+            <p class="form-note">* Required fields</p>
+
+            <div class="form-actions">
 
                 <button type="submit" class="details-button">
 
@@ -127,11 +127,12 @@
                     Cancel
                 </a>
 
-            </form>
+            </div>
 
-        </section>
+        </form>
 
-    </main>
+    </section>
 
-</body>
-</html>
+</main>
+
+</@layout.layout>

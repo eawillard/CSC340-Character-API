@@ -1,73 +1,72 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Character | Cowboy Bebop</title>
+<#import "shared/layout.ftlh" as layout>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        crossorigin="anonymous"
-    >
+<@layout.layout>
 
-    <link rel="stylesheet" href="/style.css">
-</head>
+<main class="form-page">
 
-<body>
+    <section class="form-container delete-container">
 
-    <nav class="navbar">
-        <ul>
-            <li><a href="/characters">Home</a></li>
-            <li><a href="/characters/about">About</a></li>
-            <li><a href="/characters/new">Add a Character</a></li>
-        </ul>
-    </nav>
+        <p class="eyebrow">CONFIRM ACTION</p>
 
-    <main class="about-page">
+        <h1>Delete Character</h1>
 
-        <section class="about-content">
+        <h2>Are you sure?</h2>
 
-            <h1>Delete Character</h1>
+        <p>
+            You are about to permanently remove
+            <strong>${character.name}</strong>
+            from your character gallery.
+        </p>
 
-            <h2>Are you sure?</h2>
+        <#if character.imageUrl?? &&
+             character.imageUrl?has_content>
 
-            <p>
-                You are about to permanently remove
-                <strong>${character.name}</strong>
-                from your character gallery.
-            </p>
+            <img
+                src="${character.imageUrl}"
+                alt="${character.name}"
+                class="delete-image"
+                onerror="this.onerror=null;this.src='/images/placeholder.png';">
 
-            <#if character.imageUrl?? && character.imageUrl?has_content>
-                <img
-                    src="${character.imageUrl}"
-                    alt="${character.name}"
-                    style="max-width: 250px; height: auto;"
-                >
-            </#if>
+        <#else>
 
-            <p>
-                This action cannot be undone.
-            </p>
+            <img
+                src="/images/placeholder.png"
+                alt="Character image unavailable"
+                class="delete-image">
 
-            <form action="/characters/${character.characterId}/delete"
-                  method="post">
+        </#if>
 
-                <button type="submit" class="details-button">
+        <p>This action cannot be undone.</p>
+
+        <form
+            action="/characters/${character.characterId}/delete"
+            method="post"
+            onsubmit="return confirm('Are you sure you want to permanently delete this character?');">
+
+            <div class="form-actions">
+
+                <button type="submit"
+                        class="details-button delete-button">
+
                     Yes, Delete Character
+
                 </button>
 
-                <a href="/characters/${character.characterId}"
-                   class="details-button">
+                <a
+                    href="/characters/${character.characterId}"
+                    class="details-button">
+
                     Cancel
+
                 </a>
 
-            </form>
+            </div>
 
-        </section>
+        </form>
 
-    </main>
+    </section>
 
-</body>
-</html>
+</main>
+
+</@layout.layout>
