@@ -38,9 +38,10 @@ public void deleteCharacter(Long id) {
 
 public List<CowboyBebopCharacter> searchByName(String name) {
     return characterRepository.findByNameContainingIgnoreCase(name);
-}
+    }
 
-public List<CowboyBebopCharacter> filterByOriginPlanet(String originPlanet) {
+public List<CowboyBebopCharacter> filterByOriginPlanet(String originPlanet)
+    {
     return characterRepository.findByOriginPlanetIgnoreCase(originPlanet);
-}
+    }
 }

@@ -1,60 +1,137 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add a New Character</title>
+    <title>Character Form | Cowboy Bebop</title>
 
-     <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
->
-     <link rel="stylesheet" href="style.css">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous"
+    >
+
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
+
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="details.html">Details</a></li>
-            <li><a href="new-character-form.html">New Character</a></li>
+            <li><a href="/characters">Home</a></li>
+            <li><a href="/characters/about">About</a></li>
+            <li><a href="/characters/new">Add a Character</a></li>
         </ul>
     </nav>
 
-    <main class="form-page">
-        <h1>Add a New Character</h1>
-        <p>Fill out the form below to add a character.</p>
+    <main class="about-page">
 
-        <form action="#" method="post">
-            <div>
-                <label for="name">Character Name</label>
-                <input type="text" id="name" name="name" placeholder="Character name" required>
-            </div>
+        <section class="about-content">
 
-            <div>
-                <label for="session-appearance">First Appearance</label>
-                <input type="text" id="session-appearance" name="session-appearance" placeholder="Episode name" required>
-            </div>
+            <h1>
+                <#if character.characterId??>
+                    Edit Character
+                <#else>
+                    Add a New Character
+                </#if>
+            </h1>
 
-            <div>
-                <label for="skills">Abilities</label>
-                <input type="text" id="skills" name="skills" placeholder="Weapon, skills, etc." required>
-            </div>
+            <#if errors??>
+                <div class="alert alert-danger">
+                    <ul>
+                        <#list errors as error>
+                            <li>${error}</li>
+                        </#list>
+                    </ul>
+                </div>
+            </#if>
 
-            <div>
-                <label for="image">Image URL</label>
-                <input type="url" id="image" name="image" placeholder="Enter a valid image URL" required>
-            </div>
+            <form
+                action="<#if character.characterId??>/characters/${character.characterId}/edit<#else>/characters</#if>"
+                method="post">
 
-            <div>
-                <label for="description">Short Description</label>
-                <textarea id="description" name="description" rows="6" placeholder="Describe the character..." required></textarea>
-            </div>
+                <div class="mb-3">
+                    <label for="name">Character Name</label>
 
-            <button type="submit" class="button">Add Character</button>
-        </form>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="form-control"
+                        value="${(character.name)!''}"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="description">Description / Backstory</label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        class="form-control"
+                        rows="5"
+                        required
+                    >${(character.description)!''}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="firstSession">First Appearance</label>
+
+                    <input
+                        type="text"
+                        id="firstSession"
+                        name="firstSession"
+                        class="form-control"
+                        value="${(character.firstSession)!''}"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="originPlanet">Planet of Origin</label>
+
+                    <input
+                        type="text"
+                        id="originPlanet"
+                        name="originPlanet"
+                        class="form-control"
+                        value="${(character.originPlanet)!''}"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="imageUrl">Character Image URL</label>
+
+                    <input
+                        type="text"
+                        id="imageUrl"
+                        name="imageUrl"
+                        class="form-control"
+                        value="${(character.imageUrl)!''}"
+                        placeholder="/images/Spike_spiegel.png"
+                    >
+                </div>
+
+                <button type="submit" class="details-button">
+
+                    <#if character.characterId??>
+                        Save Changes
+                    <#else>
+                        Add Character
+                    </#if>
+
+                </button>
+
+                <a href="/characters" class="details-button">
+                    Cancel
+                </a>
+
+            </form>
+
+        </section>
+
     </main>
-    </body>
+
+</body>
 </html>

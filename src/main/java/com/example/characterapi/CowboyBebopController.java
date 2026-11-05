@@ -21,15 +21,25 @@ public List<CowboyBebopCharacter> getAllCharacters(
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String originPlanet) {
 
+    List<CowboyBebopCharacter> characters = characterService.getAllCharacters();
+
     if (name != null && !name.isBlank()) {
-        return characterService.searchByName(name);
+        characters = characters.stream()
+                .filter(c -> c.getName()
+                        .toLowerCase()
+                        .contains(name.toLowerCase()))
+                .toList();
     }
 
     if (originPlanet != null && !originPlanet.isBlank()) {
-        return characterService.filterByOriginPlanet(originPlanet);
+        characters = characters.stream()
+                .filter(c -> c.getOriginPlanet() != null
+                        && c.getOriginPlanet()
+                        .equalsIgnoreCase(originPlanet))
+                .toList();
     }
 
-    return characterService.getAllCharacters();
+    return characters;
 }
 @GetMapping("/{id}")
 public CowboyBebopCharacter getCharacterById(@PathVariable Long id) {

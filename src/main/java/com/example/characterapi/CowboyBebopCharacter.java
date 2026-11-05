@@ -22,18 +22,17 @@ public class CowboyBebopCharacter {
 
     private String firstSession;
     private String originPlanet;
+    private String imageUrl;
 
     public CowboyBebopCharacter() {
     }
 
-    public CowboyBebopCharacter(String name, String description,
-                       String firstSession,
-                       String originPlanet) {
+    public CowboyBebopCharacter(String name, String description, String firstSession, String originPlanet, String imageUrl) {
         this.name = name;
         this.description = description;
         this.firstSession = firstSession;
         this.originPlanet = originPlanet;
-       
+        this.imageUrl = imageUrl;
     }
 
     public Long getCharacterId() {
@@ -74,6 +73,14 @@ public class CowboyBebopCharacter {
 
     public void setOriginPlanet(String originPlanet) {
         this.originPlanet = originPlanet;
+    }
+
+    public String getImageUrl() {
+    return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
     }
 }
 

@@ -1,69 +1,110 @@
+
 <!DOCTYPE html>
+<#import "shared/layout.ftlh" as layout>
+
+<@layout.layout>
+
+    
+
+</@layout.layout>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>${character.name} | Cowboy Bebop Character Gallery</title>
 
-     <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
->
-     <link rel="stylesheet" href="style.css">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous"
+    >
+
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
+
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="details.html">Details</a></li>
-            <li><a href="new-character-form.html">New Character</a></li>
+            <li><a href="/characters">Home</a></li>
+            <li><a href="/characters/about">About</a></li>
+            <li><a href="/characters/new">Add a Character</a></li>
         </ul>
     </nav>
-    
+
     <main class="details-page">
-        <section class="details-image" aria-label="Character portrait">
-            <img src="images/Spike_spiegel.png" alt="Spike Spiegel">
-        </section>
+
+        
+<section class="details-image">
+
+    <#if character.imageUrl?? && character.imageUrl?has_content>
+        <#assign imageSrc = character.imageUrl>
+        <#assign imageAlt = character.name>
+    <#else>
+        <#assign imageSrc = "/images/placeholder.png">
+        <#assign imageAlt = "No image available">
+    </#if>
+
+    <img src="${imageSrc}" alt="${imageAlt}">
+
+</section>
+
 
         <section class="details-content">
+
             <h1>${character.name}</h1>
-            <p>"Just a humble bounty hunter, ma'am." - Spike Spiegel</p>
+
+            <#if successMessage??>
+                <div class="alert alert-success">
+                    ${successMessage}
+                </div>
+            </#if>
 
             <h2>Character Information</h2>
+
             <ul>
-          <li><strong>Alias:</strong> Swimming Bird</li>
-         <li><strong>Hair color:</strong> Dark Green</li>
-           <li><strong>Eye color:</strong> Right - Light brown; Left - brown</li>
-           <li><strong>Height:</strong> 6'1"</li>
-           <li><strong>Weight:</strong> 175 lbs</li>
-         <li><strong>Birth date:</strong> June 26th, 2044</li>
-          
+                <li>
+                    <strong>Planet of Origin:</strong>
+                    ${character.originPlanet!'Unknown'}
+                </li>
+
+                <li>
+                    <strong>First Appearance:</strong>
+                    ${character.firstSession!'Unknown'}
+                </li>
             </ul>
 
             <h2>Backstory</h2>
+
             <p>${character.description}</p>
 
-            <h2>Abilities</h2>
-            <ul>
-                <li>Martial Arts</li>
-                <li>Piloting (pilots Swordfish II)</li>
-                <li>Marksmanship</li>
-            </ul>
+            <div class="character-actions">
 
-            <h2>Personality</h2>
-            <p>Spike is a cynical, nonchalant, and laid-back character. He lounges, sleeps, and smokes a lot, and is often seen as lazy. However, he is also a skilled fighter and bounty hunter, and is known for his quick reflexes and sharp wit.
-                 He also has very little patience and can be hot headed. He has an inability to let go of his past and plays a role more akin to an anti-hero.
+                <a href="/characters"
+                   class="details-button">
+                    Back to Gallery
+                </a>
 
-                 
+                <a href="/characters/${character.characterId}/edit"
+                   class="details-button">
+                    Edit Character
+                </a>
 
-            <a href="index.html" class="button">Back to Gallery</a>
+                <a href="/characters/${character.characterId}/delete"
+                   class="details-button">
+                    Delete Character
+                </a>
+
+            </div>
+
         </section>
+
     </main>
-     <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
 </body>
 </html>
+</@layout.layout>

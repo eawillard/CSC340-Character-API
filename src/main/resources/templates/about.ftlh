@@ -1,27 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<#import "layout.ftlh" as layout>
 
-     <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
->
-     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="details.html">Details</a></li>
-            <li><a href="new-character-form.html">New Character</a></li>
-        </ul>
-    </nav>
+<@layout.layout>
+
     <main class="about-page">
         <img src="images/cb_logo.png" alt="cowboy bebop logo" class="about-image">
         <section class="about-content">
@@ -35,6 +15,27 @@
                 They're eager to play jazz more freely as they wish then... in 2071 in the universe... The bounty hunters, who are gathering in the spaceship "BEBOP", will play freely without fear of risky things.
                  They must create new dreams and films by breaking traditional styles. The work, which becomes a new genre itself, will be called... COWBOY BEBOP "
 
+                    <p>
+                This application uses Spring Boot MVC and FreeMarker
+                to create dynamic web pages. Character information
+                is stored in a PostgreSQL database hosted through Neon.
+            </p>
+
+            <p>
+                The application is organized into different layers.
+                The controller handles requests from users, the
+                service layer manages character operations, and
+                the repository communicates with the database using
+                Spring Data JPA.
+            </p>
+
+            <p>
+                FreeMarker takes the information retrieved from
+                the database and displays it on the website.
+                Users can browse characters, search by name or
+                planet, view character details, and add, edit,
+                or delete characters.
+            </p>
     </main>
      <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
