@@ -67,12 +67,6 @@ The website uses the service layer to access character data, while the REST API 
 - `400 Bad Request` – Invalid or missing required information.
 - `404 Not Found` – Character does not exist.
 
-## Deployment
-
-**Platform:** Render  
-**Database:** Neon PostgreSQL
-Character data is stored in Neon. Database credentials are kept in environment variables and are not committed to GitHub.
-
 
 ## Deployed API
 
@@ -81,4 +75,6 @@ Render URL: [https://csc340-character-api.onrender.com/api/characters](https://c
 NOTE: Render free services sleep after roughly 15 minutes of inactivity, so the first request afterward can take up to a minute.
 Neon scales idle databases to zero, which adds a short delay on the first query.
 Render's file system is ephemeral. All persistent data lives in Neon.
+
+NOTICE: The page opens up to no characters found. Click back to home page to view.
 
