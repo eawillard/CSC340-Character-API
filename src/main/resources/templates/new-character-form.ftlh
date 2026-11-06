@@ -92,6 +92,33 @@
                     value="${(character.originPlanet)!''}">
 
             </div>
+            <div class="mb-3">
+
+                <label for="originPlanet">Planet of Origin</label>
+
+                <input
+                    type="text"
+                    id="originPlanet"
+                    name="originPlanet"
+                    class="form-control"
+                    value="${(character.originPlanet)!''}"
+                >
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="hobby">Hobby</label>
+
+                <input
+                    type="text"
+                    id="hobby"
+                    name="hobby"
+                    class="form-control"
+                    value="${(character.hobby)!''}"
+                >
+
+            </div>
 
             <div class="mb-3">
 

@@ -19,6 +19,7 @@
             <img
                 src="${character.imageUrl}"
                 alt="${character.name}"
+                class="<#if character.name == 'Edward'>edward-image</#if>"
                 onerror="this.onerror=null;this.src='/images/placeholder.png';">
 
         <#else>
@@ -46,22 +47,22 @@
                 ${character.characterId}
             </li>
 
-            <li>
-                <strong>Planet of Origin:</strong>
-                ${character.originPlanet!'Unknown'}
-            </li>
+           <ul>
+    <li>
+        <strong>Planet of Origin:</strong>
+        ${character.originPlanet!'Unknown'}
+    </li>
 
-            <li>
-                <strong>First Appearance:</strong>
-                ${character.firstSession!'Unknown'}
-            </li>
+    <li>
+        <strong>First Appearance:</strong>
+        ${character.firstSession!'Unknown'}
+    </li>
 
-            <li>
-                <strong>Image URL:</strong>
-                ${character.imageUrl!'No image available'}
-            </li>
-
-        </ul>
+    <li>
+        <strong>Hobby:</strong>
+        ${character.hobby!'Unknown'}
+    </li>
+</ul>
 
         <h2>Backstory and Description</h2>
 

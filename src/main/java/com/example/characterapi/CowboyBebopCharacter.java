@@ -23,6 +23,7 @@ public class CowboyBebopCharacter {
     private String firstSession;
     private String originPlanet;
     private String imageUrl;
+    private String hobby;
 
     public CowboyBebopCharacter() {
     }
@@ -82,5 +83,12 @@ public class CowboyBebopCharacter {
     public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
     }
+    public String getHobby() {
+    return hobby;
+}
+
+public void setHobby(String hobby) {
+    this.hobby = hobby;
+}
 }
 
