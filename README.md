@@ -76,7 +76,7 @@ Character data is stored in Neon. Database credentials are kept in environment v
 
 ## Deployed API
 
-Render URL: https://csc340-character-api.onrender.com/api/characters
+Render URL: [https://csc340-character-api.onrender.com/api/characters](https://csc340-character-api.onrender.com)
 
 NOTE: Render free services sleep after roughly 15 minutes of inactivity, so the first request afterward can take up to a minute.
 Neon scales idle databases to zero, which adds a short delay on the first query.
