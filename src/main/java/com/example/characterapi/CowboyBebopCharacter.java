@@ -86,7 +86,6 @@ public class CowboyBebopCharacter {
     public String getHobby() {
     return hobby;
 }
-
 public void setHobby(String hobby) {
     this.hobby = hobby;
 }

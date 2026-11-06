@@ -2,71 +2,56 @@
 <#import "shared/layout.ftlh" as layout>
 
 <@layout.layout>
+    <main class="form-page">
+        <section class="form-container delete-container" aria-labelledby="delete-character-title">
+            <p class="eyebrow">CONFIRM ACTION</p>
 
-<main class="form-page">
+            <h1 id="delete-character-title">Delete Character</h1>
+            <h2>Are you sure?</h2>
 
-    <section class="form-container delete-container">
+            <p>
+                You are about to permanently remove
+                <strong>${character.name}</strong>
+                from your character gallery.
+            </p>
 
-        <p class="eyebrow">CONFIRM ACTION</p>
+            <#if character.imageUrl?? && character.imageUrl?has_content>
+                <img
+                    src="${character.imageUrl}"
+                    alt="${character.name}"
+                    class="delete-image"
+                    onerror="this.onerror=null;this.src='/images/placeholder.png';">
+            <#else>
+                <img
+                    src="/images/placeholder.png"
+                    alt="Character image unavailable"
+                    class="delete-image">
+            </#if>
 
-        <h1>Delete Character</h1>
+            <p>This action cannot be undone.</p>
 
-        <h2>Are you sure?</h2>
+            <form
+                action="/characters/${character.characterId}/delete"
+                method="post"
+                class="delete-form"
+                onsubmit="return confirm('Are you sure you want to permanently delete this character?');">
 
-        <p>
-            You are about to permanently remove
-            <strong>${character.name}</strong>
-            from your character gallery.
-        </p>
+                <div class="form-actions">
+                    <button
+                        type="submit"
+                        class="details-button delete-button"
+                        aria-label="Delete ${character.name}">
+                        Yes, Delete Character
+                    </button>
 
-        <#if character.imageUrl?? &&
-             character.imageUrl?has_content>
-
-            <img
-                src="${character.imageUrl}"
-                alt="${character.name}"
-                class="delete-image"
-                onerror="this.onerror=null;this.src='/images/placeholder.png';">
-
-        <#else>
-
-            <img
-                src="/images/placeholder.png"
-                alt="Character image unavailable"
-                class="delete-image">
-
-        </#if>
-
-        <p>This action cannot be undone.</p>
-
-        <form
-            action="/characters/${character.characterId}/delete"
-            method="post"
-            onsubmit="return confirm('Are you sure you want to permanently delete this character?');">
-
-            <div class="form-actions">
-
-                <button type="submit"
-                        class="details-button delete-button">
-
-                    Yes, Delete Character
-
-                </button>
-
-                <a
-                    href="/characters/${character.characterId}"
-                    class="details-button">
-
-                    Cancel
-
-                </a>
-
-            </div>
-
-        </form>
-
-    </section>
-
-</main>
-
+                    <a
+                        href="/characters/${character.characterId}"
+                        class="details-button"
+                        aria-label="Cancel deletion of ${character.name}">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
 </@layout.layout>

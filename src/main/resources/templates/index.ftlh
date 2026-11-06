@@ -6,7 +6,6 @@
 <header class="header">
     <p class="eyebrow">SEE YOU SPACE COWBOY...</p>
     <h1>Cowboy Bebop Character Gallery</h1>
-    <p>Explore the crew and characters of the Bebop universe.</p>
 </header>
 
 <main class="container">
@@ -55,23 +54,17 @@
 
             <#list characters as character>
 
+                <#assign imageUrl = "/images/placeholder.png">
+                <#if character.imageUrl?? && character.imageUrl?has_content>
+                    <#assign imageUrl = character.imageUrl>
+                </#if>
+
                 <article class="character-card">
 
-                    <#if character.imageUrl?? &&
-                         character.imageUrl?has_content>
-
-                        <img
-                            src="${character.imageUrl}"
-                            alt="${character.name}"
-                            onerror="this.onerror=null;this.src='/images/placeholder.png';">
-
-                    <#else>
-
-                        <img
-                            src="/images/placeholder.png"
-                            alt="Character image unavailable">
-
-                    </#if>
+                    <img
+                        src="${imageUrl}"
+                        alt="${character.name}"
+                        onerror="this.onerror=null;this.src='/images/placeholder.png';">
 
                     <div class="character-info">
 

@@ -8,27 +8,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import jakarta.validation.Valid;
 
 @Controller 
  @RequestMapping("/characters")
 public class CharacterUiController {
-    
+
     private final CowboyBebopCharacterService characterService;
 
     public CharacterUiController(CowboyBebopCharacterService characterService) {
         this.characterService = characterService;
     }
 
-    
-    // HOME / GALLERY
+    private CowboyBebopCharacter findCharacterOrNull(Long id) {
+        return characterService.getCharacterById(id).orElse(null);
+    }
+
+    private String notFound(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        return "error";
+    }
+
     @GetMapping({"", "/"})
     public String home(
             Model model,
@@ -61,23 +66,18 @@ public class CharacterUiController {
         return "index";
     }
 
-    // ABOUT
     @GetMapping("/about")
     public String about() {
         return "about";
     }
 
-    // CHARACTER DETAILS
     @GetMapping("/{id}")
     public String details(
             @PathVariable Long id,
             Model model,
-            @org.springframework.web.bind.annotation.RequestParam(
-                    required = false) String successMessage) {
+            @RequestParam(required = false) String successMessage) {
 
-        CowboyBebopCharacter character = characterService
-                .getCharacterById(id)
-                .orElse(null);
+        CowboyBebopCharacter character = findCharacterOrNull(id);
 
         if (character == null) {
             return "error";
@@ -88,7 +88,6 @@ public class CharacterUiController {
         return "details";
     }
 
-   // SHOW ADD FORM
     @GetMapping("/new")
     public String showAddForm(Model model) {
 
@@ -101,7 +100,6 @@ public class CharacterUiController {
         return "new-character-form";
     }
 
-     // SAVE NEW CHARACTER
     @PostMapping
     public String addCharacter(
             @Valid @ModelAttribute("character")
@@ -117,9 +115,7 @@ public class CharacterUiController {
 
             return "new-character-form";
         }
-
         character.setCharacterId(null);
-
         characterService.saveCharacter(character);
 
         redirectAttributes.addFlashAttribute(
@@ -129,20 +125,16 @@ public class CharacterUiController {
         return "redirect:/characters";
     }
 
- // SHOW EDIT FORM
     @GetMapping("/{id}/edit")
     public String showEditForm(
             @PathVariable Long id,
             Model model,
             HttpServletResponse response) {
 
-        CowboyBebopCharacter character = characterService
-                .getCharacterById(id)
-                .orElse(null);
+        CowboyBebopCharacter character = findCharacterOrNull(id);
 
         if (character == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return "error";
+            return notFound(response);
         }
 
         model.addAttribute("character", character);
@@ -153,7 +145,6 @@ public class CharacterUiController {
         return "new-character-form";
     }
 
-   // UPDATE EXISTING CHARACTER
     @PostMapping("/{id}/edit")
     public String updateCharacter(
             @PathVariable Long id,
@@ -164,13 +155,10 @@ public class CharacterUiController {
             RedirectAttributes redirectAttributes,
             HttpServletResponse response) {
 
-        CowboyBebopCharacter existingCharacter = characterService
-                .getCharacterById(id)
-                .orElse(null);
+        CowboyBebopCharacter existingCharacter = findCharacterOrNull(id);
 
         if (existingCharacter == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return "error";
+            return notFound(response);
         }
 
         if (result.hasErrors()) {
@@ -195,20 +183,16 @@ public class CharacterUiController {
         return "redirect:/characters/" + id;
     }
 
-   // SHOW DELETE CONFIRMATION
     @GetMapping("/{id}/delete")
     public String confirmDelete(
             @PathVariable Long id,
             Model model,
             HttpServletResponse response) {
 
-        CowboyBebopCharacter character = characterService
-                .getCharacterById(id)
-                .orElse(null);
+        CowboyBebopCharacter character = findCharacterOrNull(id);
 
         if (character == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return "error";
+            return notFound(response);
         }
 
         model.addAttribute("character", character);
@@ -216,20 +200,16 @@ public class CharacterUiController {
         return "delete-character";
     }
 
-    // DELETE CHARACTER
     @PostMapping("/{id}/delete")
     public String deleteCharacter(
             @PathVariable Long id,
             RedirectAttributes redirectAttributes,
             HttpServletResponse response) {
 
-        CowboyBebopCharacter character = characterService
-                .getCharacterById(id)
-                .orElse(null);
+        CowboyBebopCharacter character = findCharacterOrNull(id);
 
         if (character == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return "error";
+            return notFound(response);
         }
 
         String characterName = character.getName();

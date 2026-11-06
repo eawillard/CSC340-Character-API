@@ -18,7 +18,6 @@ public class CowboyBebopController {
         this.characterService = characterService;
     }
 
-    // GET ALL CHARACTERS / SEARCH
     @GetMapping
     public List<CowboyBebopCharacter> getAllCharacters(
             @RequestParam(required = false) String name,
@@ -42,11 +41,9 @@ public class CowboyBebopController {
                                     .equalsIgnoreCase(originPlanet.trim()))
                     .toList();
         }
-
         return characters;
     }
 
-    // GET CHARACTER BY ID
     @GetMapping("/{id}")
     public CowboyBebopCharacter getCharacterById(
             @PathVariable Long id) {
@@ -57,7 +54,6 @@ public class CowboyBebopController {
                         "Character not found: " + id));
     }
 
-    // CREATE CHARACTER
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CowboyBebopCharacter createCharacter(
@@ -68,12 +64,10 @@ public class CowboyBebopController {
         return characterService.saveCharacter(character);
     }
 
-    // UPDATE CHARACTER
     @PutMapping("/{id}")
     public CowboyBebopCharacter updateCharacter(
             @PathVariable Long id,
             @Valid @RequestBody CowboyBebopCharacter character) {
-
         characterService.getCharacterById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
@@ -84,7 +78,6 @@ public class CowboyBebopController {
         return characterService.saveCharacter(character);
     }
 
-    // DELETE CHARACTER
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCharacter(@PathVariable Long id) {
