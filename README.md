@@ -1,95 +1,84 @@
 # CSC340-Character-API
-Cowboy Bebop Character REST API
+Cowboy Bebop Character API
 
-A RESTful API built with Spring Boot to manage characters from Cowboy Bebop. Contains the main 5 characters: Spike, Faye, Jet, Edward, and Ein. The API supports creating, retrieving, updating, deleting, searching, and filtering characters. Character data is stored in PostgreSQL using Neon.
+A full-stack web application built with *ava, Spring Boot, FreeMarker, and PostgreSQL Users can view, search, add, edit, and delete characters from Cowboy Bebop.
 
-Entity: CowboyBebopCharacter
-Entity attributes: characterId, name, description, firstSession, originPlanet.
+The database includes Spike, Faye, Jet, Edward, and Ein.
 
-Database table: characters
+## Features
+- View all characters in a gallery with images and descriptions.
+- Search characters by name and filter by planet.
+- View individual character details and backstories.
+- Add new characters through a form.
+- Edit existing character information.
+- Delete characters with confirmation.
+- Display success messages and friendly error messages.
+- Shared navigation across all pages.
 
-Attribute	Type
-Rules
-characterId: Long Unique ID generated automatically
-name:	String	Required; cannot be null or blank
-description:	String	Required; cannot be null or blank
-firstSession:	String	First episode associated with the character
-originPlanet:	String	Character's planet of origin
+## Application Architecture
 
+The application uses Spring Boot MVC and a layered architecture:
 
+- **Controller:** Handles website requests and form submissions.
+- **Service:** Contains character-related business logic.
+- **Repository:** Communicates with the database.
+- **Database:** Neon PostgreSQL stores character information.
+- **Front End:** FreeMarker, HTML, and CSS display dynamic character information.
 
-Method	Path	Description	Success Status
-GET	/api/characters	Retrieve all characters	200 OK
+The website uses the service layer to access character data, while the REST API remains available independently.
 
-GET	/api/characters/{id}	Retrieve a character by ID	200 OK
+## Website Pages
 
-POST	/api/characters	Create a character	201 Created
-PUT	/api/characters/{id}	Update an existing character	200 OK
+| Page | Route | Description |
+|---|---|---|
+| Home / Gallery | `/characters` | Displays and searches characters |
+| Character Details | `/characters/{id}` | Displays character information |
+| About | `/about` | Describes the project |
+| Add Character | `/characters/new` | Adds a new character |
+| Edit Character | `/characters/{id}/edit` | Updates a character |
+| Delete Character | `/characters/{id}/delete` | Deletes a character |
 
-DELETE	/api/characters/{id}	Delete a character	204 No Content
+## Character Attributes
 
-GET	/api/characters?name=spi	Search names using partial, case-insensitive matching	200 OK
+| Attribute | Type |
+|---|---|
+| characterId | Long |
+| name | String |
+| description | String |
+| firstSession | String |
+| originPlanet | String |
+| hobby | String |
+| imageUrl | String |
 
-GET	/api/characters?originPlanet=Mars	Filter characters by origin planet	200 OK
+## REST API Endpoints
 
-POST Example — Create a Character
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/characters` | Get all characters |
+| GET | `/api/characters/{id}` | Get character by ID |
+| POST | `/api/characters` | Create character |
+| PUT | `/api/characters/{id}` | Update character |
+| DELETE | `/api/characters/{id}` | Delete character |
+| GET | `/api/characters?name=spi` | Search by name |
+| GET | `/api/characters?originPlanet=Mars` | Filter by planet |
 
-POST /api/characters
+## Error Handling
 
-Content-Type: application/json
+- `400 Bad Request` – Invalid or missing required information.
+- `404 Not Found` – Character does not exist.
 
-{
-  "name": "Faye Valentine",
-  
-  "description": "A former wanted bounty head who later became a member of the Bebop crew.",
-  
-  "firstSession": "Honky Tonk Women",
-  
-  "originPlanet": "Earth"
-}
+## Deployment
 
-
-The characterId is generated automatically. A successful request returns 201 Created and the created character.
-
-PUT Example — Update a Character
-
-PUT /api/characters/1
-
-Content-Type: application/json
-
-{
-  "name": "Spike Spiegel",
-  
-  "description": "An exiled former hitman of the Red Dragon Syndicate who now works as a bounty hunter.",
-  
-  "firstSession": "Asteroid Blues",
-  
-  "originPlanet": "Mars"
-}
-
-
-Replace 1 with the ID of the character you want to update. A successful request returns 200 OK.
-
-Search and Filtering
-
-Search by name: GET /api/characters?name=spi
-
-Filter by origin planet: GET /api/characters?originPlanet=Mars
-
-Name searches are partial and case-insensitive. Origin planet filtering is case-insensitive.
-
-If both query parameters are provided, the controller prioritizes the name search. The filters are not combined.
-
-Error Responses
-Status	Description
-400 Bad Request	The request fails validation, such as when the name or description is missing or blank
-404 Not Found	The requested character ID does not exist
+**Platform:** Render  
+**Database:** Neon PostgreSQL
+Character data is stored in Neon. Database credentials are kept in environment variables and are not committed to GitHub.
 
 
-Deployed API
+## Deployed API
 
 Render URL: https://csc340-character-api.onrender.com/api/characters
 
 NOTE: Render free services sleep after roughly 15 minutes of inactivity, so the first request afterward can take up to a minute.
 Neon scales idle databases to zero, which adds a short delay on the first query.
 Render's file system is ephemeral. All persistent data lives in Neon.
+
